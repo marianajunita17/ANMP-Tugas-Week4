@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mariana.adv160420017week4.R
 import com.mariana.adv160420017week4.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_student_list.*
@@ -56,6 +57,15 @@ class StudentListFragment : Fragment() {
 
         recView.layoutManager = LinearLayoutManager(context)
         recView.adapter = studentListAdapter
+
+        val refreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.refreshLayout)
+        refreshLayout.setOnRefreshListener {
+            recView.visibility = View.GONE
+            txtError.visibility = View.GONE
+            progressLoad.visibility = View.VISIBLE
+            viewModel.refresh()
+            refreshLayout.isRefreshing = false
+        }
 
         observeViewModel()
     }

@@ -3,10 +3,15 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdk 33
+
+    dataBinding {
+        enabled true
+    }
 
     defaultConfig {
         applicationId "com.mariana.adv160420017week4"

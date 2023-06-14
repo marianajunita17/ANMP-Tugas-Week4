@@ -3,6 +3,7 @@ package com.mariana.adv160420017week4.util
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.media.Image
 import android.os.Build
 import android.view.View
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.QuickContactBadge
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.databinding.BindingAdapter
 import com.mariana.adv160420017week4.R
 import com.mariana.adv160420017week4.view.MainActivity
 import com.squareup.picasso.Callback
@@ -21,7 +23,7 @@ fun ImageView.loadImage(url: String?, progressBar: ProgressBar){
         .load(url)
         .resize(400,400)
         .centerCrop()
-        .error(com.mariana.adv160420017week4.R.drawable.ic_baseline_error_24)
+        .error(R.drawable.ic_baseline_error_24)
         .into(this, object :Callback {
             override fun onSuccess() {
                 progressBar.visibility = View.GONE
@@ -59,5 +61,10 @@ fun createNotificationChannel(context: Context, importance: Int, showBadge: Bool
         val notificationManager = context.getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }
+}
+
+@BindingAdapter("android:imageUrl", "android:progressBar")
+fun loadPhotoUrl(view: ImageView, url:String?, pb:ProgressBar){
+    view.loadImage(url, pb)
 }
 
